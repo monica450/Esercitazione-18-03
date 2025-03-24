@@ -1,0 +1,114 @@
+#include <iostream>
+
+
+template <typename T> //template
+class complex_number {
+    private: //quello che segue è privato
+    T a; 
+    T b; //definizione del tipo
+    public:
+    complex_number(){
+        a=0;
+        b=0; //default
+    }
+    complex_number(T r,T i){
+        a=r;
+        b=i;
+    }
+    
+    T getreale(){
+        return a; //così restituisce a pubblico anche se creato privato
+    }
+    
+    T getimmaginaria(){
+        return b;
+    }
+    
+    complex_number<T> coniugato() {
+        return complex_number<T> (a,-b); //così ho creato un oggetto complesso
+    }
+    
+    friend std::ostream& operator<<(std::ostream& os, const complex_number<T> c){
+   
+        os<<c.a;
+        if (c.b>=0){
+            os<<"+"<<c.b<<"i";
+        }
+        else{
+            os<<c.b<<"i"; //il meno è già incorporato
+        }
+        return os; 
+    }
+    
+    complex_number <T>& operator +=(const complex_number<T>& altro){
+        a+=altro.a; 
+        b+=altro.b;
+        return *this; //passo l'indirizzo
+    }
+    
+    complex_number <T>& operator *=(const complex_number<T>& altro){
+        if (a==0 && altro.a==0){
+            b=0;
+            a=-(b*altro.b);
+        }
+        else{
+            a=(a*altro.a)-(b*altro.b);
+            b=(a*altro.b) + (b*altro.a);
+        }
+        return *this; //passo l'indirizzo
+    }
+    
+    complex_number <T> operator +(const complex_number<T> & altro){ 
+        T reale=a+altro.a;
+        T imm=b+altro.b;
+        return complex_number<T> (reale,imm); 
+    }
+    
+    complex_number <T> operator *(const complex_number<T>& altro){
+        T imm;
+        T reale;
+        if (a==0 && altro.a==0){
+            imm=0;
+            reale=-(b*altro.b);
+        }
+        else{
+            reale=(a*altro.a)-(b*altro.b);
+            imm=(a*altro.b) + (b*altro.a);
+        }
+        return complex_number<T> (reale,imm); 
+    }
+    
+    
+}; 
+
+
+int main() {
+    
+    complex_number<T> c1(1.8 double, 4.5 double);
+    complex_number<T> c2(2.0 double, -3.2 double);
+
+    std::cout << "c1: " << c1 << std::endl;
+    std::cout << "c2: " << c2 << std::endl;
+
+    // Test somma
+    T c3 = c1 + c2;
+    std::cout << "Somma: " << c3 << std::endl;
+
+    // Test prodotto
+    T c4 = c1 * c2;
+    std::cout << "Prodotto: " << c4 << std::endl;
+
+    // Test coniugato
+    std::cout << "Coniugato di c1: " << c1.coniugato() << std::endl;
+
+    // Test operazione +=
+    c1 += c2;
+    std::cout << "c1 dopo c1 += c2: " << c1 << std::endl;
+	
+	// Test operazione *=
+    c1 *= c2;
+    std::cout << "c1 dopo c1 *= c2: " << c1 << std::endl;
+	
+   
+    return 0;
+}
