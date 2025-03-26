@@ -28,7 +28,7 @@ class complex_number {
         return complex_number<T> (a,-b); //così ho creato un oggetto complesso
     }
     
-    friend std::ostream& operator<<(std::ostream& os, const complex_number<T> c){
+    std::ostream& operator<<(std::ostream& os, const complex_number<T> c){
    
         os<<c.a;
         if (c.b>=0){
