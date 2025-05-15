@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.9)
 
-project(complex_number LANGUAGES CXX C VERSION 1.0.0)
+project(ComplexNumbers LANGUAGES CXX C VERSION 1.0.0)
 
 # Set C++ Standard
 ################################################################################
@@ -20,27 +20,27 @@ endif (WIN32)
 
 ## Eigen3
 find_package(Eigen3 CONFIG REQUIRED)
-list(APPEND complex_number_LINKED_LIBRARIES PUBLIC Eigen3::Eigen)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PUBLIC Eigen3::Eigen)
 
 ## Threads
 find_package(Threads REQUIRED)
-list(APPEND complex_number_LINKED_LIBRARIES PRIVATE Threads::Threads)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PRIVATE Threads::Threads)
 
 ## GTest
 find_package(GTest REQUIRED)
 
-list(APPEND complex_number_LINKED_LIBRARIES PRIVATE GTest::gtest)
-list(APPEND complex_number_LINKED_LIBRARIES PRIVATE GTest::gtest_main)
-list(APPEND complex_number_LINKED_LIBRARIES PRIVATE GTest::gmock)
-list(APPEND complex_number_LINKED_LIBRARIES PRIVATE GTest::gmock_main)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PRIVATE GTest::gtest)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PRIVATE GTest::gtest_main)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PRIVATE GTest::gmock)
+list(APPEND ComplexNumbers_LINKED_LIBRARIES PRIVATE GTest::gmock_main)
 
 # Create executable
 ################################################################################
 add_executable(${PROJECT_NAME}
     main.cpp
-    ${complex_number_SOURCES})
+    ${ComplexNumbers_SOURCES})
     
 
-target_link_libraries(${PROJECT_NAME} ${complex_number_LINKED_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${complex_number_INCLUDE})
+target_link_libraries(${PROJECT_NAME} ${ComplexNumbers_LINKED_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${ComplexNumbers_INCLUDE})
 target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
